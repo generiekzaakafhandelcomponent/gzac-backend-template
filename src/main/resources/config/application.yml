@@ -1,0 +1,183 @@
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration will be overriden by the Spring profile you use,
+# for example application-dev.yml if you use the "dev" profile.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+logging:
+    file:
+        name: /tmp/spring.log
+
+spring:
+    profiles:
+        active: ${SPRING_PROFILES_ACTIVE}
+    application:
+        name: gzac-backend
+    jackson:
+        date-format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+        time-zone: UTC
+    devtools:
+        restart:
+            enabled: false
+        livereload:
+            enabled: false
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${SPRING_DATASOURCE_URL}
+        name: ${SPRING_DATASOURCE_NAME}
+        username: ${SPRING_DATASOURCE_USERNAME}
+        password: ${SPRING_DATASOURCE_PASSWORD}
+        hikari:
+            poolName: "valtimo-core-pool"
+            auto-commit: false
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 500
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
+                characterEncoding: utf8
+                useUnicode: true
+                useLegacyDatetimeCode: false
+                useSSL: false
+                useLocalSessionState: true
+                rewriteBatchedStatements: true
+                cacheResultSetMetadata: true
+                cacheServerConfiguration: true
+                elideSetAutoCommits: true
+                maintainTimeStats: false
+                serverTimezone: UTC
+                allowPublicKeyRetrieval: true
+    groovy:
+        template:
+            check-template-location: false
+    liquibase:
+        enabled: false
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        database: mysql
+        show_sql: false
+        open-in-view: false
+        properties:
+            hibernate:
+                hbm2ddl.auto: none
+                generate_statistics: false
+                naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+                cache:
+                    use_second_level_cache: false
+                    use_query_cache: false
+                    region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+                format_sql: true
+                jdbc:
+                    time_zone: UTC
+                connection:
+                    provider_disables_autocommit: true
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+            use-new-id-generator-mappings: false
+    messages:
+        basename: i18n/messages
+    main.allow-bean-definition-overriding: true
+    jersey:
+        application-path: /api/camunda-rest
+    autoconfigure:
+        exclude:
+            - org.springframework.boot.actuate.autoconfigure.metrics.web.tomcat.TomcatMetricsAutoConfiguration
+            - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+
+server:
+    port: 8080
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+        min-response-size: 1024
+
+mailing:
+    onlyAllowWhitelistedRecipients: true
+    redirectAllMails: false
+    whitelistedEmailAddresses:
+    whitelistedDomains:
+    sendRedirectedMailsTo:
+
+valtimo:
+    app:
+        scheme: http
+        hostname: ${VALTIMO_APP_HOSTNAME}
+    jwt:
+        base64encoding: false #auth0 client is not base64 encoded
+        tokenValidityInSeconds: 3600 # Token is valid 1 hour
+        tokenValidityInSecondsForRememberMe: 2592000
+        secret: ${KEYCLOAK_PUBLIC_KEY}
+    hardening:
+        removeStacktracesFromReturnedExceptions: true
+        allowStacktraceOnIps:
+            - "*"
+    swagger:
+        enabled: false
+        title: Valtimo Implementation API
+        description: Valtimo Implementation API documentation
+        version: 1.0.0
+        termsOfServiceUrl:
+        contactName:
+        contactUrl:
+        contactEmail:
+        license:
+        licenseUrl:
+    connector-encryption:
+        secret: "0123456789101112"
+    plugin:
+        encryption-secret: "abcdefghijklmnop"
+    openklant:
+        url: https://openklant-zgw.test.k8s.ritense.com
+        clientId: dummy
+        secret: dummy
+        rsin: dummy
+
+spring-actuator:
+    username: admin
+    password: #env var
+
+audit:
+    record:
+        retention: 365 # days
+
+# ==================
+# CRON job settings
+# ==================
+scheduling:
+    enabled: true
+    job:
+        cron:
+            syncAuth0LogsEvents: 0 0 3 * * ? # Every day at 3:00
+            cleanupAuditEvents: 0 0 4 * * ? # Every day at 00:00
+            taskNotificationReminder: 0 0 10 * * ? # Every day at 10:00
+
+camunda:
+    bpm:
+        database:
+            type: mysql
+        history-level: AUDIT
+        history-level-default: AUDIT
+        admin-user:
+            id: Admin
+            password: ${CAMUNDA_BPM_ADMIN-USER_PASSWORD}
+            first-name: Admin account
+
+# ==================
+# keycloak server to server config
+# ==================
+keycloak:
+    realm: ${KEYCLOAK_REALM}
+    auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
+    resource: ${KEYCLOAK_RESOURCE}
+    credentials:
+        secret: ${KEYCLOAK_CREDENTIALS_SECRET}
