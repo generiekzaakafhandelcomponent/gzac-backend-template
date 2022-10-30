@@ -19,18 +19,9 @@ plugins {
     kotlin("plugin.jpa")
     kotlin("plugin.allopen")
 
-    // Docker-compose plugin
-    id("com.avast.gradle.docker-compose")
-
-    // Spring boot actuator generator
-    id("com.gorylenko.gradle-git-properties")
-
     // Checkstyle
     id("org.jlleitschuh.gradle.ktlint")
     id("com.diffplug.spotless")
-
-    // SonarQube
-    id("org.sonarqube")
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_13
