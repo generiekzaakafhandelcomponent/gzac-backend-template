@@ -12,6 +12,7 @@
   - The application uptime can be verified by calling [this API endpoint](http://localhost:8080/api/ping)
 
 ## Supporting containers
-The GZAC backend application requires a Keycloak instance and a database server. When running the application locally, running Keycloak and the database locally as well is recommended. In this repository, multiple Docker compose files are available to support the GZAC application. For Keycloak and MySQL, [this Docker compose](https://github.com/generiekzaakafhandelcomponent/gzac-docker-compose/blob/main/keycloak-and-mysql.yml) file should be used.
+The GZAC backend application requires a Keycloak instance and a database server. When running the application locally, running Keycloak and the database locally as well is recommended. In [this repository](https://github.com/generiekzaakafhandelcomponent/gzac-docker-compose), Docker compose files are available to support the GZAC application: 
+- [Keycloak and MySQL](https://github.com/generiekzaakafhandelcomponent/gzac-docker-compose/blob/main/keycloak-and-mysql.yml)
 
 # Adding implementation code
