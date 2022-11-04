@@ -1,7 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.io.ByteArrayOutputStream
 
 plugins {
     war
