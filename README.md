@@ -1,6 +1,6 @@
 # Getting started
 ## Prerequisites
-- Java 13
+- Java 17
 - A running Keycloak instance
 - A running MySQL server
 
