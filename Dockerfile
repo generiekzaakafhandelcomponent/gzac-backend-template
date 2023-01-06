@@ -1,4 +1,4 @@
-FROM openjdk:13.0.2
+FROM openjdk:17-bullseye
 
 ADD build/libs/gzac-backend.war /app.jar
 
