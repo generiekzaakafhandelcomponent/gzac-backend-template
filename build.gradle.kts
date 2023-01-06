@@ -43,6 +43,8 @@ dependencies {
     implementation("com.ritense.valtimo:documenten-api:$valtimoVersion")
     implementation("com.ritense.valtimo:form:$valtimoVersion")
     implementation("com.ritense.valtimo:form-link:$valtimoVersion")
+    implementation("com.ritense.valtimo:form-flow:$valtimoVersion")
+    implementation("com.ritense.valtimo:form-flow-valtimo:$valtimoVersion")
     implementation("com.ritense.valtimo:haalcentraal-brp:$valtimoVersion")
     implementation("com.ritense.valtimo:keycloak-iam:$valtimoVersion")
     implementation("com.ritense.valtimo:klant:$valtimoVersion")
