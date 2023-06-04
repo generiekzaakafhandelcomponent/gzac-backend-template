@@ -29,7 +29,7 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        driver-class-name: org.postgresql.Driver
         url: ${SPRING_DATASOURCE_URL}
         name: ${SPRING_DATASOURCE_NAME}
         username: ${SPRING_DATASOURCE_USERNAME}
@@ -60,8 +60,8 @@ spring:
     liquibase:
         enabled: false
     jpa:
-        database-platform: org.hibernate.dialect.MySQL8Dialect
-        database: mysql
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        database: postgresql
         show_sql: false
         open-in-view: false
         properties:
@@ -141,6 +141,7 @@ valtimo:
         clientId: dummy
         secret: dummy
         rsin: dummy
+    database: postgres
 
 spring-actuator:
     username: admin
@@ -164,7 +165,7 @@ scheduling:
 camunda:
     bpm:
         database:
-            type: mysql
+            type: postgres
         history-level: AUDIT
         history-level-default: AUDIT
         admin-user:
