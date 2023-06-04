@@ -34,8 +34,11 @@ val valtimoVersion: String by project
 
 dependencies {
 
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
     implementation("com.ritense.valtimo:audit:$valtimoVersion")
     implementation("com.ritense.valtimo:besluit:$valtimoVersion")
+    implementation("com.ritense.valtimo:case:$valtimoVersion")
     implementation("com.ritense.valtimo:connector:$valtimoVersion")
     implementation("com.ritense.valtimo:contactmoment:$valtimoVersion")
     implementation("com.ritense.valtimo:contract:$valtimoVersion")
@@ -59,7 +62,7 @@ dependencies {
     implementation("com.ritense.valtimo:process-document:$valtimoVersion")
     implementation("com.ritense.valtimo:smartdocuments:$valtimoVersion")
     implementation("com.ritense.valtimo:web:$valtimoVersion")
-    implementation("com.ritense.valtimo:wordpress-mail:$valtimoVersion")
+    implementation("com.ritense.valtimo:local-mail:$valtimoVersion")
     implementation("com.ritense.valtimo:zaken-api:$valtimoVersion")
     implementation("com.ritense.valtimo:objecten-api-authentication:$valtimoVersion")
     implementation("com.ritense.valtimo:test-utils-common:$valtimoVersion")
