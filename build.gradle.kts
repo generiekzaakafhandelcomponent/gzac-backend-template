@@ -83,7 +83,7 @@ dependencies {
     testImplementation("org.camunda.bpm.extension:camunda-bpm-assert:1.2")
     testImplementation("org.camunda.bpm.extension:camunda-bpm-assert-scenario:1.1.1")
     testImplementation("org.camunda.bpm.extension.mockito:camunda-bpm-mockito:5.16.0")
-    testImplementation("org.mockito:mockito-core:4.4.0")
+    testImplementation("org.mockito:mockito-core:4.11.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 }
 
