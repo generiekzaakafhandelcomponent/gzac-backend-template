@@ -73,7 +73,7 @@ dependencies {
     implementation("mysql:mysql-connector-java")
 
     // Kotlin logger
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
+    implementation("io.github.microutils:kotlin-logging:2.1.23")
 
     // Testing
     testImplementation("com.ritense.valtimo:test-utils-common:$valtimoVersion")
