@@ -112,15 +112,13 @@ valtimo:
     app:
         scheme: http
         hostname: ${VALTIMO_APP_HOSTNAME}
-    jwt:
-        base64encoding: false #auth0 client is not base64 encoded
-        tokenValidityInSeconds: 3600 # Token is valid 1 hour
-        tokenValidityInSecondsForRememberMe: 2592000
-        secret: ${KEYCLOAK_PUBLIC_KEY}
     hardening:
         removeStacktracesFromReturnedExceptions: true
         allowStacktraceOnIps:
             - "*"
+    oauth:
+        tokenValidityInSeconds: 3600 # Token is valid 1 hour
+        public-key: ${KEYCLOAK_PUBLIC_KEY}
     swagger:
         enabled: false
         title: Valtimo Implementation API

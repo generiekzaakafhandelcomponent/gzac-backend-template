@@ -38,6 +38,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     implementation("com.ritense.valtimo:audit:$valtimoVersion")
+    implementation("com.ritense.valtimo:authorization:$valtimoVersion")
     implementation("com.ritense.valtimo:besluit:$valtimoVersion")
     implementation("com.ritense.valtimo:case:$valtimoVersion")
     implementation("com.ritense.valtimo:connector:$valtimoVersion")
@@ -58,7 +59,6 @@ dependencies {
     implementation("com.ritense.valtimo:milestones:$valtimoVersion")
     implementation("com.ritense.valtimo:notes:$valtimoVersion")
     implementation("com.ritense.valtimo:object-management:$valtimoVersion")
-    implementation("com.ritense.valtimo:objects-api:$valtimoVersion")
     implementation("com.ritense.valtimo:objecten-api:$valtimoVersion")
     implementation("com.ritense.valtimo:objecttypen-api:$valtimoVersion")
     implementation("com.ritense.valtimo:openzaak:$valtimoVersion")
@@ -70,8 +70,6 @@ dependencies {
     implementation("com.ritense.valtimo:zaken-api:$valtimoVersion")
     implementation("com.ritense.valtimo:objecten-api-authentication:$valtimoVersion")
     implementation("com.ritense.valtimo:test-utils-common:$valtimoVersion")
-
-    implementation("mysql:mysql-connector-java")
 
     // Kotlin logger
     implementation("io.github.microutils:kotlin-logging:2.1.21")
