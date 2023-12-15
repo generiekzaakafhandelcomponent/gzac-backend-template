@@ -72,7 +72,7 @@ dependencies {
     implementation("com.ritense.valtimo:test-utils-common:$valtimoVersion")
 
     // Kotlin logger
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
+    implementation("io.github.microutils:kotlin-logging:3.0.5")
 
     // Testing
     testImplementation("com.ritense.valtimo:test-utils-common:$valtimoVersion")
