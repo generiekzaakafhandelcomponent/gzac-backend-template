@@ -1,5 +1,5 @@
 #!/bin/bash
-echo Which version do you want to release?
+echo "Which version do you want to release?"
 read valtimoReleaseNumber
 
 export VALTIMO_RELEASE_NUMBER=$valtimoReleaseNumber
