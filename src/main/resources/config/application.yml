@@ -55,6 +55,25 @@ spring:
                 maintainTimeStats: false
                 serverTimezone: UTC
                 allowPublicKeyRetrieval: true
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    jwk-set-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI}
+            client:
+                provider:
+                    keycloakjwt:
+                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKJWT_ISSUER-URI}
+                    keycloakapi:
+                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER-URI}
+                registration:
+                    keycloakjwt:
+                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKJWT_CLIENT-ID}
+                    keycloakapi:
+                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT-ID}
+                        client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT-SECRET}
+                        authorization-grant-type: authorization_code
+                        scope: openid
     groovy:
         template:
             check-template-location: false
@@ -111,7 +130,6 @@ valtimo:
         hostname: ${VALTIMO_APP_HOSTNAME}
     oauth:
         tokenValidityInSeconds: 3600 # Token is valid 1 hour
-        public-key: ${VALTIMO_OAUTH_PUBLIC_KEY}
     hardening:
         removeStacktracesFromReturnedExceptions: true
         allowStacktraceOnIps:
@@ -127,15 +145,8 @@ valtimo:
         contactEmail:
         license:
         licenseUrl:
-    connector-encryption:
-        secret: ${VALTIMO_CONNECTORENCRYPTION_SECRET}
     plugin:
-        encryption-secret: "abcdefghijklmnop"
-    openklant:
-        url: https://openklant-zgw.test.k8s.ritense.com
-        clientId: dummy
-        secret: dummy
-        rsin: dummy
+        encryption-secret: ${VALTIMO_PLUGIN_ENCRYPTION-SECRET}
     database: postgres
     changelog:
         pbac:
@@ -177,13 +188,3 @@ camunda:
             id: Admin
             password: ${CAMUNDA_BPM_ADMIN-USER_PASSWORD}
             first-name: Admin account
-
-# ==================
-# keycloak server to server config
-# ==================
-keycloak:
-    realm: ${KEYCLOAK_REALM}
-    auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
-    resource: ${KEYCLOAK_RESOURCE}
-    credentials:
-        secret: ${KEYCLOAK_CREDENTIALS_SECRET}

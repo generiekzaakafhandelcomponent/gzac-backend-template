@@ -16,11 +16,11 @@
 
 package com.ritense.valtimo
 
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
+import java.net.InetAddress
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.core.env.Environment
-import java.net.InetAddress
 
 @SpringBootApplication
 class Application

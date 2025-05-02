@@ -1,5 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -23,17 +24,22 @@ plugins {
     id("com.diffplug.spotless")
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_17
-java.targetCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
+java.targetCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
+    maven { url = uri("https://valtimo-snapshots.s3.eu-central-1.amazonaws.com/") }
     maven { url = uri("https://repo.ritense.com/repository/maven-public/") }
     maven { url = uri("https://repo.ritense.com/repository/maven-snapshot/") }
 }
 
 val valtimoVersion: String by project
+val postgresqlDriverVersion: String by project
+val nettyResolverDnsNativeMacOsVersion: String by project
+val mockitoKotlinVersion: String by project
+val camundaBpmAssertVersion: String by project
 
 dependencies {
     implementation(platform("com.ritense.valtimo:valtimo-dependency-versions:$valtimoVersion"))
@@ -42,32 +48,32 @@ dependencies {
 
     implementation("com.ritense.valtimo:local-mail")
 
-    implementation("org.postgresql:postgresql:42.7.3")
+    implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
 
     if (System.getProperty("os.arch") == "aarch64") {
-        runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.105.Final:osx-aarch_64")
+        runtimeOnly("io.netty:netty-resolver-dns-native-macos:$nettyResolverDnsNativeMacOsVersion:osx-aarch_64")
     }
 
     // Kotlin logger
-    implementation("io.github.microutils:kotlin-logging")
+    implementation("io.github.oshai:kotlin-logging")
 
     // Testing
     testImplementation("com.ritense.valtimo:test-utils-common")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.camunda.bpm.assert:camunda-bpm-assert:15.0.0")
-    testImplementation("org.camunda.bpm.extension:camunda-bpm-junit5:1.1.0")
-    testImplementation("org.camunda.bpm.extension:camunda-bpm-assert:1.2")
-    testImplementation("org.camunda.bpm.extension:camunda-bpm-assert-scenario:1.1.1")
-    testImplementation("org.camunda.bpm.extension.mockito:camunda-bpm-mockito:5.16.0")
-    testImplementation("org.mockito:mockito-core:4.4.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("org.camunda.bpm:camunda-bpm-assert:$camundaBpmAssertVersion")
+    testImplementation("org.mockito:mockito-core")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions {
+    compilerOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+        jvmTarget = JvmTarget.JVM_21
     }
+}
+
+ktlint {
+    version.set("1.4.1")
 }
 
 apply(from = "gradle/environment.gradle.kts")
