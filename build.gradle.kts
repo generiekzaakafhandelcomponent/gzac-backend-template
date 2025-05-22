@@ -30,7 +30,6 @@ java.targetCompatibility = JavaVersion.VERSION_21
 repositories {
     mavenCentral()
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
-    maven { url = uri("https://valtimo-snapshots.s3.eu-central-1.amazonaws.com/") }
     maven { url = uri("https://repo.ritense.com/repository/maven-public/") }
     maven { url = uri("https://repo.ritense.com/repository/maven-snapshot/") }
 }
