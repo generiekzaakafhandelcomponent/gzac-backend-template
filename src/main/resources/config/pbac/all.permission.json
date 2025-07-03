@@ -2,7 +2,7 @@
     "changesetId": "permissions-v1",
     "permissions": [
         {
-            "resourceType": "com.ritense.valtimo.camunda.domain.CamundaExecution",
+            "resourceType": "com.ritense.valtimo.operaton.domain.OperatonExecution",
             "action": "create",
             "roleKey": "ROLE_ADMIN"
         },
@@ -112,32 +112,32 @@
             "roleKey": "ROLE_ADMIN"
         },
         {
-            "resourceType": "com.ritense.valtimo.camunda.domain.CamundaTask",
+            "resourceType": "com.ritense.valtimo.operaton.domain.OperatonTask",
             "action": "assign",
             "roleKey": "ROLE_ADMIN"
         },
         {
-            "resourceType": "com.ritense.valtimo.camunda.domain.CamundaTask",
+            "resourceType": "com.ritense.valtimo.operaton.domain.OperatonTask",
             "action": "assignable",
             "roleKey": "ROLE_ADMIN"
         },
         {
-            "resourceType": "com.ritense.valtimo.camunda.domain.CamundaTask",
+            "resourceType": "com.ritense.valtimo.operaton.domain.OperatonTask",
             "action": "claim",
             "roleKey": "ROLE_ADMIN"
         },
         {
-            "resourceType": "com.ritense.valtimo.camunda.domain.CamundaTask",
+            "resourceType": "com.ritense.valtimo.operaton.domain.OperatonTask",
             "action": "complete",
             "roleKey": "ROLE_ADMIN"
         },
         {
-            "resourceType": "com.ritense.valtimo.camunda.domain.CamundaTask",
+            "resourceType": "com.ritense.valtimo.operaton.domain.OperatonTask",
             "action": "view_list",
             "roleKey": "ROLE_ADMIN"
         },
         {
-            "resourceType": "com.ritense.valtimo.camunda.domain.CamundaTask",
+            "resourceType": "com.ritense.valtimo.operaton.domain.OperatonTask",
             "action": "view",
             "roleKey": "ROLE_ADMIN"
         }

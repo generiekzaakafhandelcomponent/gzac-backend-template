@@ -175,7 +175,7 @@ scheduling:
             cleanupAuditEvents: 0 0 4 * * ? # Every day at 00:00
             taskNotificationReminder: 0 0 10 * * ? # Every day at 10:00
 
-camunda:
+operaton:
     bpm:
         database:
             type: postgres
