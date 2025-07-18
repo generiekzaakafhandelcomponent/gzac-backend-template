@@ -2,6 +2,16 @@
     "changesetId": "permissions-v1",
     "permissions": [
         {
+            "resourceType": "com.ritense.case_.domain.definition.CaseDefinition",
+            "action": "view",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.case_.domain.definition.CaseDefinition",
+            "action": "view_list",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
             "resourceType": "com.ritense.valtimo.operaton.domain.OperatonExecution",
             "action": "create",
             "roleKey": "ROLE_ADMIN"
@@ -139,6 +149,31 @@
         {
             "resourceType": "com.ritense.valtimo.operaton.domain.OperatonTask",
             "action": "view",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "create",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "modify",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "view",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "view_list",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "delete",
             "roleKey": "ROLE_ADMIN"
         }
     ]

@@ -104,7 +104,7 @@ spring:
         basename: i18n/messages
     main.allow-bean-definition-overriding: true
     jersey:
-        application-path: /api/camunda-rest
+        application-path: /api/operaton-rest
     autoconfigure:
         exclude:
             - org.springframework.boot.actuate.autoconfigure.metrics.web.tomcat.TomcatMetricsAutoConfiguration
@@ -186,5 +186,5 @@ operaton:
                 enforceHistoryTimeToLive: false
         admin-user:
             id: Admin
-            password: ${CAMUNDA_BPM_ADMIN-USER_PASSWORD}
+            password: ${OPERATON_BPM_ADMIN-USER_PASSWORD}
             first-name: Admin account

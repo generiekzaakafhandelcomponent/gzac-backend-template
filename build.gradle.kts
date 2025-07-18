@@ -35,7 +35,6 @@ val valtimoVersion: String by project
 val postgresqlDriverVersion: String by project
 val nettyResolverDnsNativeMacOsVersion: String by project
 val mockitoKotlinVersion: String by project
-val camundaBpmAssertVersion: String by project
 
 dependencies {
     implementation(platform("com.ritense.valtimo:valtimo-dependency-versions:$valtimoVersion"))
@@ -56,7 +55,6 @@ dependencies {
     // Testing
     testImplementation("com.ritense.valtimo:test-utils-common")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.camunda.bpm:camunda-bpm-assert:$camundaBpmAssertVersion")
     testImplementation("org.mockito:mockito-core")
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
 }
