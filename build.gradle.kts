@@ -1,7 +1,10 @@
 @file:Suppress("UNCHECKED_CAST")
 
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.run.BootRun
+import java.util.Properties
 
 plugins {
     war
@@ -22,6 +25,9 @@ plugins {
     // Checkstyle
     id("org.jlleitschuh.gradle.ktlint")
     id("com.diffplug.spotless")
+
+    // Other
+    id("com.avast.gradle.docker-compose")
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_21
@@ -29,6 +35,8 @@ java.targetCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }
+    maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
 }
 
 val valtimoVersion: String by project
@@ -66,6 +74,23 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+apply(plugin = "docker-compose")
+apply(from = "gradle/dockerComposeGzac.gradle.kts")
+
+dockerCompose {
+    setProjectName("gzac-docker-compose")
+    useDockerComposeV2 = true
+    useComposeFiles.add("${buildDir.absolutePath}/docker/extract/gzac-docker-compose-v-13/docker-compose.yaml")
+    composeAdditionalArgs.addAll("--profile", "zgw")
+    stopContainers = false
+    removeContainers = false
+    removeVolumes = false
+    if (DefaultNativePlatform.getCurrentOperatingSystem().isMacOsX) {
+        executable = "/usr/local/bin/docker-compose"
+        dockerExecutable = "/usr/local/bin/docker"
+    }
+}
+
 ktlint {
     version.set("1.4.1")
 }
@@ -77,5 +102,24 @@ tasks.bootRun {
     val t = this
     doFirst {
         configureEnvironment(t)
+    }
+}
+
+tasks.register("bootRunWithDocker", BootRun::class.java) {
+    group = "application"
+    description = "Starts docker containers and then runs this project as a Spring Boot application"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass = "com.ritense.valtimo.ApplicationKt"
+
+    dependsOn("composeUpGzac")
+    doFirst {
+        val f = file(".env.properties")
+        if (f.isFile()) {
+            val props = Properties()
+            f.inputStream().use { props.load(it) }
+            props.forEach { key, value ->
+                environment[key.toString()] = value.toString()
+            }
+        }
     }
 }

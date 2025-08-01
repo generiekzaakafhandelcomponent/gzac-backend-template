@@ -34,10 +34,10 @@ fun main(args: Array<String>) {
         """
 
         ----------------------------------------------------------
-        Application '${environment.getProperty("spring.application.name")}' is running!
-        Active profile(s): [${environment.getProperty("spring.profiles.active")}].
-        Local URL: [http://127.0.0.1:${environment.getProperty("server.port")}].
-        External URL: [http://${InetAddress.getLocalHost().hostAddress}:${environment.getProperty("server.port")}]
+        |    Application '${environment.getProperty("spring.application.name")}' is running!
+        |    Active profile(s): [${environment.getProperty("spring.profiles.active")}].
+        |    Local URL: [http://127.0.0.1:${environment.getProperty("server.port")}].
+        |    External URL: [http://${InetAddress.getLocalHost().hostAddress}:${environment.getProperty("server.port")}]
         ----------------------------------------------------------
         """.trimIndent()
     }

@@ -55,25 +55,6 @@ spring:
                 maintainTimeStats: false
                 serverTimezone: UTC
                 allowPublicKeyRetrieval: true
-    security:
-        oauth2:
-            resourceserver:
-                jwt:
-                    jwk-set-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI}
-            client:
-                provider:
-                    keycloakjwt:
-                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKJWT_ISSUER-URI}
-                    keycloakapi:
-                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUER-URI}
-                registration:
-                    keycloakjwt:
-                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKJWT_CLIENT-ID}
-                    keycloakapi:
-                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT-ID}
-                        client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENT-SECRET}
-                        authorization-grant-type: authorization_code
-                        scope: openid
     groovy:
         template:
             check-template-location: false
@@ -109,6 +90,33 @@ spring:
         exclude:
             - org.springframework.boot.actuate.autoconfigure.metrics.web.tomcat.TomcatMetricsAutoConfiguration
             - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+    rabbitmq:
+        ssl.enabled: true
+        host: ${SPRING_RABBITMQ_HOST}
+        port: ${SPRING_RABBITMQ_PORT}
+        username: ${SPRING_RABBITMQ_USERNAME}
+        password: ${SPRING_RABBITMQ_PASSWORD}
+        publisher-confirm-type: correlated
+        publisher-returns: true
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    jwk-set-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI}
+            client:
+                provider:
+                    keycloakjwt:
+                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKJWT_ISSUERURI}
+                    keycloakapi:
+                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUERURI}
+                registration:
+                    keycloakjwt:
+                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKJWT_CLIENTID}
+                    keycloakapi:
+                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENTID}
+                        client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENTSECRET}
+                        authorization-grant-type: authorization_code
+                        scope: openid
 
 server:
     port: 8080
@@ -146,7 +154,7 @@ valtimo:
         license:
         licenseUrl:
     plugin:
-        encryption-secret: ${VALTIMO_PLUGIN_ENCRYPTION-SECRET}
+        encryption-secret: ${VALTIMO_PLUGIN_ENCRYPTIONSECRET}
     database: postgres
     changelog:
         pbac:
@@ -155,6 +163,16 @@ valtimo:
         whitelist:
             hosts:
                 - localhost
+    authorization:
+        dashboard:
+            enabled: true
+    logging:
+        deletionCron: 0 0 * * * ? # Every hour
+        retentionInMinutes: 60
+    zgw:
+        zaakdetails:
+            linktozaak:
+                enabled: true
 
 spring-actuator:
     username: admin
@@ -186,5 +204,5 @@ operaton:
                 enforceHistoryTimeToLive: false
         admin-user:
             id: Admin
-            password: ${OPERATON_BPM_ADMIN-USER_PASSWORD}
+            password: ${OPERATON_BPM_ADMINUSER_PASSWORD}
             first-name: Admin account
