@@ -85,7 +85,7 @@ apply(from = "gradle/dockerComposeGzac.gradle.kts")
 dockerCompose {
     setProjectName("gzac-docker-compose")
     useDockerComposeV2 = true
-    useComposeFiles.add("${buildDir.absolutePath}/docker/extract/gzac-docker-compose-main/docker-compose.yaml")
+    useComposeFiles.add("${buildDir.absolutePath}/docker/extract/gzac-docker-compose-v-12/docker-compose.yaml")
     composeAdditionalArgs.addAll("--profile", "zgw")
     stopContainers = false
     removeContainers = false

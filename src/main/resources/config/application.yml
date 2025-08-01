@@ -211,5 +211,5 @@ camunda:
                 enforceHistoryTimeToLive: false
         admin-user:
             id: Admin
-            password: ${CAMUNDA_BPM_ADMIN-USER_PASSWORD}
+            password: ${CAMUNDA_BPM_ADMINUSER_PASSWORD}
             first-name: Admin account
