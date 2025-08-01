@@ -6,6 +6,7 @@ pluginManagement {
     val ktlintVersion: String by settings
     val spotlessVersion: String by settings
     val ideaExt: String by settings
+    val dockerComposePluginVersion: String by settings
 
     plugins {
         // Idea
@@ -25,6 +26,9 @@ pluginManagement {
         // Checkstyle
         id("org.jlleitschuh.gradle.ktlint") version ktlintVersion
         id("com.diffplug.spotless") version spotlessVersion
+
+        // Other
+        id("com.avast.gradle.docker-compose") version dockerComposePluginVersion
     }
 }
 

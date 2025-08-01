@@ -90,6 +90,33 @@ spring:
         exclude:
             - org.springframework.boot.actuate.autoconfigure.metrics.web.tomcat.TomcatMetricsAutoConfiguration
             - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+    rabbitmq:
+        ssl.enabled: true
+        host: ${SPRING_RABBITMQ_HOST}
+        port: ${SPRING_RABBITMQ_PORT}
+        username: ${SPRING_RABBITMQ_USERNAME}
+        password: ${SPRING_RABBITMQ_PASSWORD}
+        publisher-confirm-type: correlated
+        publisher-returns: true
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    jwk-set-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI}
+            client:
+                provider:
+                    keycloakjwt:
+                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKJWT_ISSUERURI}
+                    keycloakapi:
+                        issuer-uri: ${SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAKAPI_ISSUERURI}
+                registration:
+                    keycloakjwt:
+                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKJWT_CLIENTID}
+                    keycloakapi:
+                        client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENTID}
+                        client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENTSECRET}
+                        authorization-grant-type: authorization_code
+                        scope: openid
 
 server:
     port: 8080
@@ -110,8 +137,7 @@ valtimo:
         scheme: http
         hostname: ${VALTIMO_APP_HOSTNAME}
     oauth:
-        tokenValidityInSeconds: 3600 # Token is valid 1 hour
-        public-key: ${VALTIMO_OAUTH_PUBLIC_KEY}
+        identifier-field: username
     hardening:
         removeStacktracesFromReturnedExceptions: true
         allowStacktraceOnIps:
@@ -130,7 +156,7 @@ valtimo:
     connector-encryption:
         secret: ${VALTIMO_CONNECTORENCRYPTION_SECRET}
     plugin:
-        encryption-secret: "abcdefghijklmnop"
+        encryption-secret: ${VALTIMO_PLUGIN_ENCRYPTIONSECRET}
     openklant:
         url: https://openklant-zgw.test.k8s.ritense.com
         clientId: dummy
@@ -144,6 +170,16 @@ valtimo:
         whitelist:
             hosts:
                 - localhost
+    authorization:
+        dashboard:
+            enabled: true
+    logging:
+        deletionCron: 0 0 * * * ? # Every hour
+        retentionInMinutes: 60
+    zgw:
+        zaakdetails:
+            linktozaak:
+                enabled: true
 
 spring-actuator:
     username: admin
@@ -177,13 +213,3 @@ camunda:
             id: Admin
             password: ${CAMUNDA_BPM_ADMIN-USER_PASSWORD}
             first-name: Admin account
-
-# ==================
-# keycloak server to server config
-# ==================
-keycloak:
-    realm: ${KEYCLOAK_REALM}
-    auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
-    resource: ${KEYCLOAK_RESOURCE}
-    credentials:
-        secret: ${KEYCLOAK_CREDENTIALS_SECRET}

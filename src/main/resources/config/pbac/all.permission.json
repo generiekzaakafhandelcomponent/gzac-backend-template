@@ -140,6 +140,66 @@
             "resourceType": "com.ritense.valtimo.camunda.domain.CamundaTask",
             "action": "view",
             "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.resource.authorization.ResourcePermission",
+            "action": "create",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.resource.authorization.ResourcePermission",
+            "action": "view_list",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.resource.authorization.ResourcePermission",
+            "action": "view",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.resource.authorization.ResourcePermission",
+            "action": "modify",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.resource.authorization.ResourcePermission",
+            "action": "delete",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "view",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "view_list",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "modify",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "delete",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.objectenapi.security.Object",
+            "action": "create",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.dashboard.domain.Dashboard",
+            "action": "view",
+            "roleKey": "ROLE_ADMIN"
+        },
+        {
+            "resourceType": "com.ritense.dashboard.domain.Dashboard",
+            "action": "view_list",
+            "roleKey": "ROLE_ADMIN"
         }
     ]
 }
