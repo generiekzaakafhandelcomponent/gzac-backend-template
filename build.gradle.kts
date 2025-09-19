@@ -1,12 +1,13 @@
 @file:Suppress("UNCHECKED_CAST")
 
+import org.gradle.kotlin.dsl.named
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.run.BootRun
 import java.util.Properties
 
 plugins {
-    war
     // Idea
     idea
     id("org.jetbrains.gradle.plugin.idea-ext")
@@ -137,4 +138,8 @@ tasks.register("bootRunWithDocker", BootRun::class.java) {
             }
         }
     }
+}
+
+tasks.named<BootJar>("bootJar") {
+    archiveFileName.set("gzac-backend.jar")
 }
