@@ -57,6 +57,10 @@ dependencies {
         runtimeOnly("io.netty:netty-resolver-dns-native-macos:$nettyResolverDnsNativeMacOsVersion:osx-aarch_64")
     }
 
+    //Plugins
+    implementation("com.ritense.valtimoplugins:freemarker:6.0.1")
+    implementation("com.ritense.valtimoplugins:smtpmail:1.0.2")
+
     // Kotlin logger
     implementation("io.github.microutils:kotlin-logging")
 
