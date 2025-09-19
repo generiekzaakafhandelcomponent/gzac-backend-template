@@ -74,6 +74,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   name: valtimo-backend-build
+                  path: ./build
           -   name: 'Login to github packages'
               uses: docker/login-action@v1
               with:
