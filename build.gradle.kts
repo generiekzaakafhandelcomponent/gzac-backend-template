@@ -1,9 +1,7 @@
 @file:Suppress("UNCHECKED_CAST")
 
-import org.gradle.kotlin.dsl.named
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.run.BootRun
 import java.util.Properties
 
