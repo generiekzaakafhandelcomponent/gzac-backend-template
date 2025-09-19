@@ -139,7 +139,3 @@ tasks.register("bootRunWithDocker", BootRun::class.java) {
         }
     }
 }
-
-tasks.named<BootJar>("bootJar") {
-    archiveFileName.set("gzac-backend.jar")
-}
