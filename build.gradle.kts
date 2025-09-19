@@ -6,7 +6,6 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 import java.util.Properties
 
 plugins {
-    war
     // Idea
     idea
     id("org.jetbrains.gradle.plugin.idea-ext")
