@@ -6,7 +6,6 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 import java.util.Properties
 
 plugins {
-    war
     // Idea
     idea
     id("org.jetbrains.gradle.plugin.idea-ext")
@@ -57,6 +56,10 @@ dependencies {
         runtimeOnly("io.netty:netty-resolver-dns-native-macos:$nettyResolverDnsNativeMacOsVersion:osx-aarch_64")
     }
 
+    // Plugins
+    implementation("com.ritense.valtimoplugins:freemarker:6.0.1")
+    implementation("com.ritense.valtimoplugins:smtpmail:1.0.2")
+
     // Kotlin logger
     implementation("io.github.microutils:kotlin-logging")
 
@@ -85,7 +88,13 @@ apply(from = "gradle/dockerComposeGzac.gradle.kts")
 dockerCompose {
     setProjectName("gzac-docker-compose")
     useDockerComposeV2 = true
-    useComposeFiles.add("${buildDir.absolutePath}/docker/extract/gzac-docker-compose-v-12/docker-compose.yaml")
+    useComposeFiles.add(
+        layout.buildDirectory
+            .dir("docker/extract/gzac-docker-compose-v-12/docker-compose.yaml")
+            .get()
+            .asFile
+            .absolutePath,
+    )
     composeAdditionalArgs.addAll("--profile", "zgw")
     stopContainers = false
     removeContainers = false
