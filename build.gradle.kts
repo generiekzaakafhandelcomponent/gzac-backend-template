@@ -58,7 +58,7 @@ dependencies {
     }
 
     // Plugins
-    implementation("com.ritense.valtimoplugins:freemarker:7.0.1")
+    implementation("com.ritense.valtimoplugins:freemarker:8.0.0")
     implementation("com.ritense.valtimoplugins:smtpmail:2.0.0")
 
     // Kotlin logger
