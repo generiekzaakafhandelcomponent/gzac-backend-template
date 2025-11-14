@@ -170,6 +170,11 @@ valtimo:
         zaakdetails:
             linktozaak:
                 enabled: true
+    imports:
+        whitelistedPaths:
+            - "GZAC_.*"
+            - "VALTIMO_.*"
+            - "IKO_.*"
 
 spring-actuator:
     username: admin
