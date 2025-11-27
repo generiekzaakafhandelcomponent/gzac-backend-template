@@ -43,6 +43,8 @@ val valtimoVersion: String by project
 val postgresqlDriverVersion: String by project
 val nettyResolverDnsNativeMacOsVersion: String by project
 val mockitoKotlinVersion: String by project
+val freemarkerPluginVersion: String by project
+val smtpmailPluginVersion: String by project
 
 dependencies {
     implementation(platform("com.ritense.valtimo:valtimo-dependency-versions:$valtimoVersion"))
@@ -58,8 +60,8 @@ dependencies {
     }
 
     // Plugins
-    implementation("com.ritense.valtimoplugins:freemarker:8.1.0")
-    implementation("com.ritense.valtimoplugins:smtpmail:2.0.0")
+    implementation("com.ritense.valtimoplugins:freemarker:$freemarkerPluginVersion")
+    implementation("com.ritense.valtimoplugins:smtpmail:$smtpmailPluginVersion")
 
     // Kotlin logger
     implementation("io.github.oshai:kotlin-logging")
