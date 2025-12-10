@@ -60,6 +60,7 @@ dependencies {
     }
 
     // Plugins
+    implementation("com.ritense.valtimo:smartdocuments")
     implementation("com.ritense.valtimoplugins:freemarker:$freemarkerPluginVersion")
     implementation("com.ritense.valtimoplugins:smtpmail:$smtpmailPluginVersion")
 
