@@ -6,7 +6,6 @@ on:
       version:
         description: 'The version to be released'
         required: true
-        default: '1.0.0'
 
 env:
   DOCKER_REPO: ritense/gzac-backend
@@ -17,6 +16,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Update Valtimo version
+        run: sed -i "s/valtimoVersion=.*/valtimoVersion=${{ inputs.version }}/" gradle.properties
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -29,6 +31,13 @@ jobs:
 
       - name: Build application
         run: ./gradlew clean build
+
+      - name: Commit version update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "Update Valtimo version to ${{ inputs.version }}"
+          git push
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
