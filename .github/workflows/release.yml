@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Update Valtimo version
+      - name: Upgrade version
         run: sed -i "s/valtimoVersion=.*/valtimoVersion=${{ inputs.version }}/" gradle.properties
 
       - name: Set up JDK 21
@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -am "Update Valtimo version to ${{ inputs.version }}"
+          git commit -am "Upgrade to ${{ inputs.version }}"
           git push
 
       - name: Set up Docker Buildx
