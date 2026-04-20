@@ -17,6 +17,8 @@ env:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +43,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -am "Upgrade to ${{ env.VERSION }}"
-          git push
+          git tag -a "${{ env.VERSION }}" -m "Release ${{ env.VERSION }}"
+          git push origin HEAD
+          git push origin "${{ env.VERSION }}"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
