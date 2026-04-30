@@ -38,8 +38,6 @@ repositories {
 }
 
 val valtimoVersion: String by project
-val postgresqlDriverVersion: String by project
-val nettyResolverDnsNativeMacOsVersion: String by project
 val mockitoKotlinVersion: String by project
 val camundaBpmAssertVersion: String by project
 
@@ -50,11 +48,7 @@ dependencies {
 
     implementation("com.ritense.valtimo:local-mail")
 
-    implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
-
-    if (System.getProperty("os.arch") == "aarch64") {
-        runtimeOnly("io.netty:netty-resolver-dns-native-macos:$nettyResolverDnsNativeMacOsVersion:osx-aarch_64")
-    }
+    implementation("org.postgresql:postgresql")
 
     // Plugins
     implementation("com.ritense.valtimoplugins:freemarker:6.0.1")
