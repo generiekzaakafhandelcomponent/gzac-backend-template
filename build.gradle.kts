@@ -58,7 +58,6 @@ dependencies {
     implementation("com.ritense.valtimoplugins:freemarker:$freemarkerPluginVersion")
     implementation("com.ritense.valtimoplugins:smtpmail:$smtpmailPluginVersion")
 
-    //implementation("com.ritense.valtimoplugins:spotler:1.0.1")
     implementation("com.ritense.valtimoplugins:archief:0.0.1-hackathon")
     implementation("com.ritense.valtimoplugins:open-product:1.2.0")
     implementation("com.ritense.valtimoplugins:token-authentication:0.9")
