@@ -28,10 +28,6 @@ on:
       version:
         description: 'Valtimo release version to sync (e.g. 13.34.0)'
         required: true
-      monorepo_ref:
-        description: 'Monorepo git ref to sync from (default: the <version> tag)'
-        required: false
-        default: ''
 
 env:
   # Monorepo apps/ subdirectory for this edition: gzac | valtimo | evenementenvergunning
@@ -59,16 +55,13 @@ jobs:
             echo "::error::No version supplied."
             exit 1
           fi
-          REF="${{ inputs.monorepo_ref }}"
-          [ -z "${REF}" ] && REF="${VERSION}"
-          echo "monorepo_ref=${REF}" >> "$GITHUB_OUTPUT"
           echo "template_tag=${VERSION}.RELEASE" >> "$GITHUB_OUTPUT"
 
       - name: Checkout monorepo (public, read-only)
         uses: actions/checkout@v4
         with:
           repository: ${{ env.MONOREPO }}
-          ref: ${{ steps.refs.outputs.monorepo_ref }}
+          ref: ${{ env.VERSION }}
           path: .monorepo
           fetch-depth: 1
 
@@ -77,7 +70,7 @@ jobs:
           set -euo pipefail
           SRC=".monorepo/backend/apps/${EDITION}/src/main"
           if [ ! -d "${SRC}" ]; then
-            echo "::error::${SRC} not found in monorepo@${{ steps.refs.outputs.monorepo_ref }}"
+            echo "::error::${SRC} not found in monorepo@${VERSION}"
             exit 1
           fi
           rm -rf src/main
