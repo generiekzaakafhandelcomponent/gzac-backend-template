@@ -1,0 +1,121 @@
+name: Sync template from monorepo
+
+# Regenerates this backend template from the Valtimo monorepo for a given release,
+# then tags it so valtimo-configurator can `git clone --branch <version>.RELEASE`.
+# This does not publish anything itself — it syncs to (and tags) a released
+# monorepo version; the monorepo pipeline does the actual releasing.
+#
+# The monorepo (valtimo-platform/valtimo) is the single source of truth for the
+# application's code and configuration. This workflow:
+#   1. checks out the public monorepo at the release tag (no token required),
+#   2. copies backend/apps/<EDITION>/src/main over this repo's src/main,
+#   3. pins valtimoVersion to the released (published) artifacts,
+#   4. verifies it assembles against those published artifacts,
+#   5. commits to THIS repo (its own GITHUB_TOKEN) and tags <version>.RELEASE.
+#
+# It does NOT build or push a Docker image: the monorepo pipeline already builds
+# and publishes the standard ritense/* images. This template exists only as the
+# plugin-injection baseline that valtimo-configurator clones and builds from.
+#
+# NOTE: the dependency list in build.gradle.kts (which Valtimo modules/starters
+# are included) stays maintained in this repo. The assemble step below fails the
+# run if the synced source needs a module that is not declared, so drift is
+# caught rather than silently shipped.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Valtimo release version to sync (e.g. 13.34.0)'
+        required: true
+      monorepo_ref:
+        description: 'Monorepo git ref to sync from (default: the <version> tag)'
+        required: false
+        default: ''
+
+env:
+  # Monorepo apps/ subdirectory for this edition: gzac | valtimo | evenementenvergunning
+  EDITION: gzac
+  MONOREPO: valtimo-platform/valtimo
+  VERSION: ${{ inputs.version }}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout template (self)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve refs
+        id: refs
+        run: |
+          set -euo pipefail
+          if [ -z "${VERSION}" ]; then
+            echo "::error::No version supplied."
+            exit 1
+          fi
+          REF="${{ inputs.monorepo_ref }}"
+          [ -z "${REF}" ] && REF="${VERSION}"
+          echo "monorepo_ref=${REF}" >> "$GITHUB_OUTPUT"
+          echo "template_tag=${VERSION}.RELEASE" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout monorepo (public, read-only)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.MONOREPO }}
+          ref: ${{ steps.refs.outputs.monorepo_ref }}
+          path: .monorepo
+          fetch-depth: 1
+
+      - name: Sync application source from monorepo
+        run: |
+          set -euo pipefail
+          SRC=".monorepo/backend/apps/${EDITION}/src/main"
+          if [ ! -d "${SRC}" ]; then
+            echo "::error::${SRC} not found in monorepo@${{ steps.refs.outputs.monorepo_ref }}"
+            exit 1
+          fi
+          rm -rf src/main
+          mkdir -p src
+          cp -a "${SRC}" src/main
+          # Backend Valtimo Maven artifacts carry the .RELEASE suffix (npm does not).
+          sed -i -E "s/^valtimoVersion=.*/valtimoVersion=${VERSION}.RELEASE/" gradle.properties
+          echo "Synced backend/apps/${EDITION}/src/main; valtimoVersion=${VERSION}"
+          grep -E '^valtimoVersion=' gradle.properties
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version-file: .java-version
+          cache: gradle
+
+      - name: Verify assembly against published artifacts
+        run: ./gradlew clean assemble --no-daemon --stacktrace
+
+      - name: Commit, tag and push
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf .monorepo
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No source changes to commit."
+          else
+            git commit -m "Sync from monorepo for Valtimo ${VERSION}"
+            git push
+          fi
+          TAG="${{ steps.refs.outputs.template_tag }}"
+          if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q "${TAG}"; then
+            echo "::warning::Tag ${TAG} already exists on origin; leaving it untouched."
+          else
+            git tag "${TAG}"
+            git push origin "${TAG}"
+            echo "Tagged ${TAG}"
+          fi
