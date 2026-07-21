@@ -37,6 +37,14 @@ repositories {
     mavenCentral()
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/releases/") }
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
+    // Valtimo backend libraries are moving from Sonatype Central to S3 (OVHcloud).
+    // Sonatype publishing stops on 10 August 2026; after that they resolve only from S3.
+    // TODO: replace the placeholder host below with the real OVHcloud bucket URL.
+    maven {
+        url = uri("https://valtimo-releases.s3.placeholder.example.com/")
+        // Only resolve Valtimo artifacts from S3; everything else stays on Maven Central.
+        content { includeGroup("com.ritense.valtimo") }
+    }
 }
 
 val valtimoVersion: String by project
