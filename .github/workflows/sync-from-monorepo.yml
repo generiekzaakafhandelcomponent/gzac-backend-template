@@ -105,10 +105,13 @@ jobs:
             git push
           fi
           TAG="${{ steps.refs.outputs.template_tag }}"
+          # Always (re)point the tag at the just-synced commit so re-running a release for the
+          # same version ships the corrected source. Delete any existing remote tag first, then
+          # recreate it on the new commit (force-move) instead of leaving a stale tag behind.
           if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q "${TAG}"; then
-            echo "::warning::Tag ${TAG} already exists on origin; leaving it untouched."
-          else
-            git tag "${TAG}"
-            git push origin "${TAG}"
-            echo "Tagged ${TAG}"
+            echo "Tag ${TAG} already exists on origin; overwriting it."
+            git push origin ":refs/tags/${TAG}"
           fi
+          git tag -f "${TAG}"
+          git push --force origin "${TAG}"
+          echo "Tagged ${TAG}"
