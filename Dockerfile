@@ -1,5 +1,9 @@
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jre-noble
 
-ADD build/libs/gzac-backend-template.war /app.jar
+COPY build/libs/gzac-backend-template.war /app.jar
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Import any mounted custom CA certificates before starting the app.
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
