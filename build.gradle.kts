@@ -67,6 +67,7 @@ dependencies {
     implementation("com.ritense.valtimo:smartdocuments")
     implementation("com.ritense.valtimoplugins:freemarker:$freemarkerPluginVersion")
     implementation("com.ritense.valtimoplugins:smtpmail:$smtpmailPluginVersion")
+    implementation("com.ritense.valtimoplugins:cloud-event:0.1.3")
 
     // Kotlin logger
     implementation("io.github.oshai:kotlin-logging")
